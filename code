@@ -1,0 +1,48 @@
+from time import *
+
+try:
+    users = {"tom": "8b06h"}
+    while True:  # Asks if user wants to create a user.
+        create = input("Create a user? (y/n): ")
+        if create == "y":
+            if create == "y":
+                username = input("Enter a username: ")
+                while True:
+                    if username.lower() in users:  # Checks for username in dictionary
+                        print("That username is taken. Try another. \n")
+                        username = input("Enter a username: ")
+                    else:  # adds userinput username and password to dictionary
+                        password = input(f"Enter your password, {username}: ")
+                        if len(password) < 6:
+                            print("Password too short, type a longer password.")
+                        else:
+                            users.update({username: password})
+                            break
+            break
+        elif create == "n":
+            break
+
+    failedattempts = 0
+    while True:
+
+        if failedattempts == 3:
+            print("Too many failed login attempts. Please try again in 10 seconds.")
+            sleep(10)
+            numberlimit = 0
+        usernameinput = input("Username: ")
+
+        if usernameinput not in users:
+            print("There aren't any existing users with that name.")
+
+        elif usernameinput in users:
+            passwordinput = input("Password: ")
+            if passwordinput == users[usernameinput]:
+                auth = 1
+                break
+            else:
+                print("Wrong password.")
+                failedattempts = failedattempts + 1
+    if auth == 1:  # Check if logged in
+        print("You are logged in.")
+except KeyboardInterrupt:
+    print("\n\nProgram canceled.")
